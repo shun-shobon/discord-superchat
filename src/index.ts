@@ -6,6 +6,13 @@ import {
   InteractionResponseType,
   APIInteractionResponse,
 } from "discord-api-types/v10";
+import satori, { init as initSatori } from "satori";
+import initYoga from "yoga-wasm-web";
+// @ts-ignore
+import WASM_YOGA from "yoga-wasm-web/dist/yoga.wasm";
+
+const yoga = await initYoga(WASM_YOGA);
+initSatori(yoga);
 
 type Bindings = {
   DISCORD_PUBLIC_KEY: string;
@@ -60,3 +67,6 @@ const app = new Hono<{ Bindings: Bindings }>()
   );
 
 export default app;
+
+// メモ:
+// 横幅: 368
