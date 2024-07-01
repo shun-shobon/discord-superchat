@@ -1,10 +1,12 @@
 import { Hono } from "hono";
 import { verifyKey } from "discord-interactions";
-import type { APIInteraction } from "discord-api-types/v10";
+import { APIInteraction, MessageFlags } from "discord-api-types/v10";
 import {
   InteractionType,
   InteractionResponseType,
   APIInteractionResponse,
+  ApplicationCommandType,
+  ApplicationCommandOptionType,
 } from "discord-api-types/v10";
 import { init as initSatori } from "satori";
 import initYoga from "yoga-wasm-web";
@@ -27,17 +29,6 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
   .get("/", (c) => {
     return c.text("OK");
-  })
-  .get("/image", async (c) => {
-    const img = await generateImage({
-      price: 1000,
-      name: "shun",
-      message: "ありがとう",
-    });
-
-    return c.body(img, 200, {
-      "Content-Type": "image/png",
-    });
   })
   .post(
     "/interaction",
@@ -69,17 +60,59 @@ const app = new Hono<{ Bindings: Bindings }>()
 
       if (
         interaction.type === InteractionType.ApplicationCommand &&
+        interaction.data.type === ApplicationCommandType.ChatInput &&
         interaction.data.name === "superchat"
       ) {
-        return c.json<APIInteractionResponse>({
+        const price = interaction.data.options
+          ?.filter((o) => o.type === ApplicationCommandOptionType.Integer)
+          .find((o) => o.name === "金額")?.value!;
+
+        const message = interaction.data.options
+          ?.filter((o) => o.type === ApplicationCommandOptionType.String)
+          .find((o) => o.name === "コメント")?.value;
+
+        const name =
+          interaction.member?.nick ??
+          interaction.member?.user.global_name ??
+          "unknown";
+
+        // if (price == null || price < 100 || 50000 < price) {
+        //   return c.json<APIInteractionResponse>({
+        //     type: InteractionResponseType.ChannelMessageWithSource,
+        //     data: {
+        //       content: "金額は100円〜50,000円の間で指定してください",
+        //       flags: MessageFlags.Ephemeral,
+        //     },
+        //   });
+        // }
+
+        const image = await generateImage({ price, message, name });
+
+        const formData = new FormData();
+
+        const payload: APIInteractionResponse = {
           type: InteractionResponseType.ChannelMessageWithSource,
           data: {
-            content: "スーパーチャットを送りました！",
+            attachments: [
+              {
+                id: 0,
+                filename: "image.png",
+              },
+            ],
           },
+        };
+
+        formData.set("payload_json", JSON.stringify(payload));
+        formData.set(
+          "files[0]",
+          new Blob([image], { type: "image/png" }),
+          "image.png"
+        );
+
+        return new Response(formData, {
+          status: 200,
         });
       }
-
-      return c.json({ status: 400, message: "Bad Request" }, 400);
     }
   );
 

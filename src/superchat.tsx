@@ -195,7 +195,7 @@ export async function generateImage({
   iconSrc,
   message,
 }: Props): Promise<Uint8Array> {
-  const textNormal = `${message ?? ""}`;
+  const textNormal = `${message ?? "x"}`;
   const textBold = `${name}￥${price}`;
   const [fontNormal, fontBold] = await Promise.all([
     fetchFont(textNormal, 400),
