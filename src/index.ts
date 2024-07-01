@@ -10,9 +10,15 @@ import { init as initSatori } from "satori";
 import initYoga from "yoga-wasm-web";
 // @ts-ignore
 import WASM_YOGA from "yoga-wasm-web/dist/yoga.wasm";
+import { initWasm } from "@resvg/resvg-wasm";
+// @ts-ignore
+import WASM_RESVG from "@resvg/resvg-wasm/index_bg.wasm";
+import { generateImage } from "./superchat";
 
 const yoga = await initYoga(WASM_YOGA);
 initSatori(yoga);
+
+await initWasm(WASM_RESVG);
 
 type Bindings = {
   DISCORD_PUBLIC_KEY: string;
@@ -21,6 +27,17 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
   .get("/", (c) => {
     return c.text("OK");
+  })
+  .get("/image", async (c) => {
+    const img = await generateImage({
+      price: 1000,
+      name: "shun",
+      message: "ありがとう",
+    });
+
+    return c.body(img, 200, {
+      "Content-Type": "image/png",
+    });
   })
   .post(
     "/interaction",

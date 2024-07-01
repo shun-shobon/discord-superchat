@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@discordjs/rest": "^2.3.0",
+    "@resvg/resvg-wasm": "^2.6.2",
     "discord-interactions": "^4.0.0",
     "hono": "^4.4.9",
     "react": "^18.3.1",
