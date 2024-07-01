@@ -117,6 +117,3 @@ const app = new Hono<{ Bindings: Bindings }>()
   );
 
 export default app;
-
-// メモ:
-// 横幅: 368
