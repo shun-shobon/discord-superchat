@@ -1,6 +1,8 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-wasm";
 
+const DPI = 3;
+
 interface Color {
   background: string;
   text: string;
@@ -71,10 +73,10 @@ function Component({ price, name, iconSrc, message }: Props) {
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        borderRadius: "12px",
+        borderRadius: `${12 * DPI}px`,
         backgroundColor: color.background,
         color: color.text,
-        fontSize: "15px",
+        fontSize: `${15 * DPI}px`,
         fontWeight: "400",
         fontFamily: "'Noto Sans JP'",
       }}
@@ -83,29 +85,29 @@ function Component({ price, name, iconSrc, message }: Props) {
         style={{
           display: "flex",
           alignItems: "center",
-          padding: "8px 16px",
+          padding: `${8 * DPI}px ${16 * DPI}px`,
           fontWeight: "500",
         }}
       >
         {iconSrc ? (
           <img
             src={iconSrc}
-            width={80}
-            height={80}
+            width={32 * DPI}
+            height={32 * DPI}
             style={{
-              width: "32px",
-              height: "32px",
+              width: `${32 * DPI}px`,
+              height: `${32 * DPI}px`,
               borderRadius: "50%",
-              marginRight: "16px",
+              marginRight: `${16 * DPI}px`,
             }}
           />
         ) : (
           <span
             style={{
-              width: "32px",
-              height: "32px",
+              width: `${32 * DPI}px`,
+              height: `${32 * DPI}px`,
               borderRadius: "50%",
-              marginRight: "16px",
+              marginRight: `${16 * DPI}px`,
               backgroundColor: "rgba(0,0,0,0.1)",
             }}
           />
@@ -118,7 +120,7 @@ function Component({ price, name, iconSrc, message }: Props) {
           <span
             style={{
               color: color.name,
-              fontSize: "14px",
+              fontSize: `${14 * DPI}px`,
               textOverflow: "ellipsis",
               overflow: "hidden",
               whiteSpace: "nowrap",
@@ -128,7 +130,7 @@ function Component({ price, name, iconSrc, message }: Props) {
           </span>
           <span
             style={{
-              paddingLeft: "8px",
+              paddingLeft: `${8 * DPI}px`,
             }}
           >
             ￥{price}
@@ -138,7 +140,7 @@ function Component({ price, name, iconSrc, message }: Props) {
       {message && (
         <div
           style={{
-            padding: "8px 16px",
+            padding: `${8 * DPI}px ${16 * DPI}px`,
             paddingTop: "0",
             wordBreak: "break-word",
             wordWrap: "break-word",
@@ -203,8 +205,8 @@ export async function generateImage({
   const svg = await satori(
     <Component price={price} name={name} iconSrc={iconSrc} message={message} />,
     {
-      width: 368,
-      height: 1000,
+      width: 368 * DPI,
+      height: 1000 * DPI,
       fonts: [
         {
           name: "Noto Sans JP",
