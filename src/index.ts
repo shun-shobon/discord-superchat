@@ -6,7 +6,7 @@ import {
   InteractionResponseType,
   APIInteractionResponse,
 } from "discord-api-types/v10";
-import satori, { init as initSatori } from "satori";
+import { init as initSatori } from "satori";
 import initYoga from "yoga-wasm-web";
 // @ts-ignore
 import WASM_YOGA from "yoga-wasm-web/dist/yoga.wasm";
