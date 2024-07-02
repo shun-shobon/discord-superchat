@@ -59,11 +59,11 @@ function getColor(price: number): Color {
 interface Props {
   price: number;
   name: string;
-  icon?: string;
+  iconSrc?: string;
   message?: string;
 }
 
-function Component({ price, name, icon, message }: Props) {
+function Component({ price, name, iconSrc, message }: Props) {
   const color = getColor(price);
 
   return (
@@ -89,9 +89,9 @@ function Component({ price, name, icon, message }: Props) {
           fontWeight: "500",
         }}
       >
-        {icon ? (
+        {iconSrc ? (
           <img
-            src={icon}
+            src={iconSrc}
             width={32 * DPI}
             height={32 * DPI}
             style={{
@@ -189,21 +189,45 @@ async function fetchFont(text: string, weight: number) {
   return fontRes.arrayBuffer();
 }
 
+async function fetchIcon(iconSrc?: string): Promise<string | undefined> {
+  if (iconSrc == null) return undefined;
+
+  const res = await fetch(iconSrc);
+  if (!res.ok) {
+    throw new Error("Failed to fetch icon");
+  }
+
+  const blob = await res.blob();
+  const base64 = await blob
+    .arrayBuffer()
+    .then((b) =>
+      btoa(
+        new Uint8Array(b).reduce(
+          (acc, byte) => acc + String.fromCharCode(byte),
+          ""
+        )
+      )
+    );
+
+  return `data:${blob.type};base64,${base64}`;
+}
+
 export async function generateImage({
   price,
   name,
-  icon,
+  iconSrc: rawIconSrc,
   message,
 }: Props): Promise<Uint8Array> {
   const textNormal = `${message ?? "x"}`;
   const textBold = `${name}￥${price}`;
-  const [fontNormal, fontBold] = await Promise.all([
+  const [fontNormal, fontBold, iconSrc] = await Promise.all([
     fetchFont(textNormal, 400),
     fetchFont(textBold, 500),
+    fetchIcon(rawIconSrc),
   ]);
 
   const svg = await satori(
-    <Component price={price} name={name} icon={icon} message={message} />,
+    <Component price={price} name={name} iconSrc={iconSrc} message={message} />,
     {
       width: 368 * DPI,
       height: 1000 * DPI,

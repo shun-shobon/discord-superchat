@@ -85,9 +85,9 @@ const app = new Hono<{ Bindings: Bindings }>()
             ? `/avatars/${interaction.member.user.id}/${interaction.member.user.avatar}.png`
             : null;
         const iconSrc =
-          iconPath != null ? `https://cdn.discordapp.com${iconPath}` : null;
-
-        const icon = iconSrc != null ? await fetchIcon(iconSrc) : undefined;
+          iconPath != null
+            ? `https://cdn.discordapp.com${iconPath}`
+            : undefined;
 
         const errorMessage = validateParams(price, message);
         if (errorMessage != null) {
@@ -100,7 +100,12 @@ const app = new Hono<{ Bindings: Bindings }>()
           });
         }
 
-        const image = await generateImage({ price, message, name, icon });
+        const image = await generateImage({
+          price,
+          message,
+          name,
+          iconSrc,
+        });
 
         const formData = new FormData();
 
@@ -169,24 +174,3 @@ const MESSAGE_MAX_LENGTH_MAP: Record<number, number> = {
   40000: 330,
   50000: 350,
 };
-
-async function fetchIcon(iconSrc: string): Promise<string> {
-  const res = await fetch(iconSrc);
-  if (!res.ok) {
-    throw new Error("Failed to fetch icon");
-  }
-
-  const blob = await res.blob();
-  const base64 = await blob
-    .arrayBuffer()
-    .then((b) =>
-      btoa(
-        new Uint8Array(b).reduce(
-          (acc, byte) => acc + String.fromCharCode(byte),
-          ""
-        )
-      )
-    );
-
-  return `data:${blob.type};base64,${base64}`;
-}
