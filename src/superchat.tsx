@@ -1,5 +1,6 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-wasm";
+import { loadEmoji } from "./emoji";
 
 const DPI = 1;
 
@@ -218,7 +219,8 @@ export async function generateImage({
   iconSrc: rawIconSrc,
   message,
 }: Props): Promise<Uint8Array> {
-  const textNormal = `${message ?? "x"}`;
+  // xをダミーとして入れる(messageが空だったり，フォントに存在しない文字列のみだった場合にエラーになるため)
+  const textNormal = `x${message ?? ""}`;
   const textBold = `${name}￥${price}`;
   const [fontNormal, fontBold, iconSrc] = await Promise.all([
     fetchFont(textNormal, 400),
@@ -243,6 +245,13 @@ export async function generateImage({
           weight: 500,
         },
       ],
+      async loadAdditionalAsset(code, segment) {
+        if (code === "emoji") {
+          return await loadEmoji(segment);
+        }
+
+        return segment;
+      },
     }
   );
 
