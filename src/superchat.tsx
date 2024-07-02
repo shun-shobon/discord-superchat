@@ -59,11 +59,11 @@ function getColor(price: number): Color {
 interface Props {
   price: number;
   name: string;
-  iconSrc?: string;
+  icon?: string;
   message?: string;
 }
 
-function Component({ price, name, iconSrc, message }: Props) {
+function Component({ price, name, icon, message }: Props) {
   const color = getColor(price);
 
   return (
@@ -89,9 +89,9 @@ function Component({ price, name, iconSrc, message }: Props) {
           fontWeight: "500",
         }}
       >
-        {iconSrc ? (
+        {icon ? (
           <img
-            src={iconSrc}
+            src={icon}
             width={32 * DPI}
             height={32 * DPI}
             style={{
@@ -192,7 +192,7 @@ async function fetchFont(text: string, weight: number) {
 export async function generateImage({
   price,
   name,
-  iconSrc,
+  icon,
   message,
 }: Props): Promise<Uint8Array> {
   const textNormal = `${message ?? "x"}`;
@@ -203,7 +203,7 @@ export async function generateImage({
   ]);
 
   const svg = await satori(
-    <Component price={price} name={name} iconSrc={iconSrc} message={message} />,
+    <Component price={price} name={name} icon={icon} message={message} />,
     {
       width: 368 * DPI,
       height: 1000 * DPI,
