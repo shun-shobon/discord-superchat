@@ -2,7 +2,7 @@ import satori from "satori";
 import { Resvg } from "@resvg/resvg-wasm";
 import { loadEmoji } from "./emoji";
 
-const DPI = 1;
+const DPI = 2;
 
 interface Color {
   background: string;
