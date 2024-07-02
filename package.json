@@ -8,23 +8,23 @@
     "register": "tsx scripts/register.ts"
   },
   "dependencies": {
-    "@discordjs/rest": "^2.3.0",
-    "@resvg/resvg-wasm": "^2.6.2",
-    "discord-interactions": "^4.0.0",
-    "hono": "^4.4.9",
-    "react": "^18.3.1",
-    "satori": "^0.10.13",
-    "yoga-wasm-web": "^0.3.3"
+    "@discordjs/rest": "2.3.0",
+    "@resvg/resvg-wasm": "2.6.2",
+    "discord-interactions": "4.0.0",
+    "hono": "4.4.10",
+    "react": "18.3.1",
+    "satori": "0.10.13",
+    "yoga-wasm-web": "0.3.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240529.0",
-    "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
-    "discord-api-types": "^0.37.91",
-    "dotenv": "^16.4.5",
-    "tsx": "^4.15.7",
-    "typescript": "^5.5.2",
-    "wrangler": "^3.57.2"
+    "@cloudflare/workers-types": "4.20240620.0",
+    "@types/node": "20.14.9",
+    "@types/react": "18.3.3",
+    "discord-api-types": "0.37.91",
+    "dotenv": "16.4.5",
+    "tsx": "4.16.0",
+    "typescript": "5.5.3",
+    "wrangler": "3.62.0"
   },
   "packageManager": "pnpm@9.4.0"
 }

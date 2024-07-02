@@ -9,50 +9,50 @@ importers:
   .:
     dependencies:
       '@discordjs/rest':
-        specifier: ^2.3.0
+        specifier: 2.3.0
         version: 2.3.0
       '@resvg/resvg-wasm':
-        specifier: ^2.6.2
+        specifier: 2.6.2
         version: 2.6.2
       discord-interactions:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0
       hono:
-        specifier: ^4.4.9
-        version: 4.4.9
+        specifier: 4.4.10
+        version: 4.4.10
       react:
-        specifier: ^18.3.1
+        specifier: 18.3.1
         version: 18.3.1
       satori:
-        specifier: ^0.10.13
+        specifier: 0.10.13
         version: 0.10.13
       yoga-wasm-web:
-        specifier: ^0.3.3
+        specifier: 0.3.3
         version: 0.3.3
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20240529.0
+        specifier: 4.20240620.0
         version: 4.20240620.0
       '@types/node':
-        specifier: ^20.14.9
+        specifier: 20.14.9
         version: 20.14.9
       '@types/react':
-        specifier: ^18.3.3
+        specifier: 18.3.3
         version: 18.3.3
       discord-api-types:
-        specifier: ^0.37.91
+        specifier: 0.37.91
         version: 0.37.91
       dotenv:
-        specifier: ^16.4.5
+        specifier: 16.4.5
         version: 16.4.5
       tsx:
-        specifier: ^4.15.7
-        version: 4.15.7
+        specifier: 4.16.0
+        version: 4.16.0
       typescript:
-        specifier: ^5.5.2
-        version: 5.5.2
+        specifier: 5.5.3
+        version: 5.5.3
       wrangler:
-        specifier: ^3.57.2
+        specifier: 3.62.0
         version: 3.62.0(@cloudflare/workers-types@4.20240620.0)
 
 packages:
@@ -600,8 +600,8 @@ packages:
     resolution: {integrity: sha512-Ox1pJVrDCyGHMG9CFg1tmrRUMRPRsAWYc/PinY0XzJU4K7y7vjNoLKIQ7BR5UJMCxNN8EM1MNDmHWA/B3aZUuw==}
     engines: {node: '>=6'}
 
-  hono@4.4.9:
-    resolution: {integrity: sha512-VW1hnYipHL/XsnSYiCTLJ+Z7iisZYWwSOiKXm9RBV2NKPxNqjfaHqeMFiDl11fK893ofmErvRpX20+FTNjZIjA==}
+  hono@4.4.10:
+    resolution: {integrity: sha512-z6918u9rXRU5CCisMHd2uUVoQXcNyUrUMmYY7VH10v4HJG7+hqgMK/G8YNTd13C6s4rBfzF09iz8VpOip9qG3A==}
     engines: {node: '>=16.0.0'}
 
   is-binary-path@2.1.0:
@@ -767,13 +767,13 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
-  tsx@4.15.7:
-    resolution: {integrity: sha512-u3H0iSFDZM3za+VxkZ1kywdCeHCn+8/qHQS1MNoO2sONDgD95HlWtt8aB23OzeTmFP9IU4/8bZUdg58Uu5J4cg==}
+  tsx@4.16.0:
+    resolution: {integrity: sha512-MPgN+CuY+4iKxGoJNPv+1pyo5YWZAQ5XfsyobUG+zoKG7IkvCPLZDEyoIb8yLS2FcWci1nlxAqmvPlFWD5AFiQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  typescript@5.5.2:
-    resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
+  typescript@5.5.3:
+    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -1240,7 +1240,7 @@ snapshots:
 
   hex-rgb@4.3.0: {}
 
-  hono@4.4.9: {}
+  hono@4.4.10: {}
 
   is-binary-path@2.1.0:
     dependencies:
@@ -1400,14 +1400,14 @@ snapshots:
 
   tslib@2.6.3: {}
 
-  tsx@4.15.7:
+  tsx@4.16.0:
     dependencies:
       esbuild: 0.21.5
       get-tsconfig: 4.7.5
     optionalDependencies:
       fsevents: 2.3.3
 
-  typescript@5.5.2: {}
+  typescript@5.5.3: {}
 
   ufo@1.5.3: {}
 
