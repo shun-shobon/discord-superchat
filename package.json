@@ -1,5 +1,5 @@
 {
-  "name": "discord-super-chat",
+  "name": "discord-superchat",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
