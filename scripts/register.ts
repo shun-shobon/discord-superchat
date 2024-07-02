@@ -32,6 +32,10 @@ const guildId = process.env["DISCORD_GUILD_ID"]!;
 
 const rest = new REST({ version: "10" }).setToken(token);
 
-await rest.put(Routes.applicationGuildCommands(applicationId, guildId), {
+// await rest.put(Routes.applicationGuildCommands(applicationId, guildId), {
+//   body: [superchat],
+// });
+
+await rest.put(Routes.applicationCommands(applicationId), {
   body: [superchat],
 });
