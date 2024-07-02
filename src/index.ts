@@ -76,15 +76,16 @@ const app = new Hono<{ Bindings: Bindings }>()
           interaction.member?.user.global_name ??
           "unknown";
 
-        // if (price == null || price < 100 || 50000 < price) {
-        //   return c.json<APIInteractionResponse>({
-        //     type: InteractionResponseType.ChannelMessageWithSource,
-        //     data: {
-        //       content: "金額は100円〜50,000円の間で指定してください",
-        //       flags: MessageFlags.Ephemeral,
-        //     },
-        //   });
-        // }
+        const errorMessage = validateParams(price, message);
+        if (errorMessage != null) {
+          return c.json<APIInteractionResponse>({
+            type: InteractionResponseType.ChannelMessageWithSource,
+            data: {
+              content: errorMessage,
+              flags: MessageFlags.Ephemeral,
+            },
+          });
+        }
 
         const image = await generateImage({ price, message, name });
 
@@ -117,3 +118,41 @@ const app = new Hono<{ Bindings: Bindings }>()
   );
 
 export default app;
+
+function validateParams(price: number, message?: string): string | null {
+  if (price < 100 || price > 50000) {
+    return "金額は100円〜50,000円の間で指定してください";
+  }
+
+  const maxLength = Object.entries(MESSAGE_MAX_LENGTH_MAP).reduce(
+    (acc, [key, value]) => {
+      if (parseInt(key) <= price) {
+        return value;
+      }
+      return acc;
+    },
+    0
+  );
+
+  if (message != null && maxLength < [...message].length) {
+    return maxLength === 0
+      ? `200円未満のスーパーチャットにはコメントを付けることはできません`
+      : `コメントは${maxLength}文字以内で指定してください`;
+  }
+
+  return null;
+}
+
+const MESSAGE_MAX_LENGTH_MAP: Record<number, number> = {
+  100: 0,
+  200: 50,
+  500: 150,
+  1000: 200,
+  2000: 225,
+  5000: 250,
+  10000: 270,
+  20000: 290,
+  30000: 310,
+  40000: 330,
+  50000: 350,
+};

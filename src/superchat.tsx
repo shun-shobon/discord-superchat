@@ -1,7 +1,7 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-wasm";
 
-const DPI = 3;
+const DPI = 1;
 
 interface Color {
   background: string;
