@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { logger } from "hono/logger";
 import { verifyKey } from "discord-interactions";
 import { APIInteraction, MessageFlags } from "discord-api-types/v10";
 import {
@@ -27,6 +28,7 @@ type Bindings = {
 };
 
 const app = new Hono<{ Bindings: Bindings }>()
+  .use(logger())
   .get("/", (c) => {
     return c.text("OK");
   })
