@@ -4,7 +4,7 @@ const ZWJ = String.fromCharCode(0x200d);
 const EPVS_REGEX = /\uFE0F/g;
 
 function getIconCode(segment: string): string {
-  // ZWJが含まれていない場合は，EPVSを削除する(EPVSはZWJが使われる絵文字には使われないため)
+  // ZWJが含まれない単独の絵文字の場合、末尾のEPVSが含まれるとURLが見つからないため削除する
   const str =
     segment.indexOf(ZWJ) === -1 ? segment.replace(EPVS_REGEX, "") : segment;
 
