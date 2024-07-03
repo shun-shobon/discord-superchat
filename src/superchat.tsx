@@ -3,6 +3,10 @@ import { Resvg } from "@resvg/resvg-wasm";
 import { loadEmoji } from "./emoji";
 
 const DPI = 2;
+const formatter = new Intl.NumberFormat("ja-JP", {
+  style: "currency",
+  currency: "JPY",
+});
 
 interface Color {
   background: string;
@@ -134,7 +138,7 @@ function Component({ price, name, iconSrc, message }: Props) {
               paddingLeft: `${8 * DPI}px`,
             }}
           >
-            ￥{price}
+            {formatter.format(price)}
           </span>
         </div>
       </div>
@@ -221,7 +225,7 @@ export async function generateImage({
 }: Props): Promise<Uint8Array> {
   // xをダミーとして入れる(messageが空だったり，フォントに存在しない文字列のみだった場合にエラーになるため)
   const textNormal = `x${message ?? ""}`;
-  const textBold = `${name}￥${price}`;
+  const textBold = `${name}￥${price},`;
   const [fontNormal, fontBold, iconSrc] = await Promise.all([
     fetchFont(textNormal, 400),
     fetchFont(textBold, 500),
